@@ -109,6 +109,7 @@ static int c2048_rand(c2048_t *c){
     index = (c->d_zero_index)[zero_index];
     (c->d)[index] = val;
     c->randVal = val;
+    c->score += val;
     c->randx = index % c->w;
     c->randy = index / c->w;
     

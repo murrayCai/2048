@@ -43,6 +43,7 @@ struct c2048_s{
     uint isOver;
     uint w;
     uint h;
+    uint score;
     direct_e direct;
     uint randVal;
     uint randx;

@@ -6,7 +6,9 @@
 #include <signal.h>
 #include "c2048.h"
 
-#define IS_DEBUG 1
+#define IS_DEBUG 0
+#define WIDTH 4
+#define HEIGHT 4
 
 const int color_str(uint v){
     switch(v){
@@ -33,8 +35,8 @@ c2048_t *c = NULL;
 void render(){
     int x = 0, y = c->h - 1;
     uint val = 0;
-    printf("\n\n====(\e[1;31m%s\e[0m => %u[%u,%u])====\n",
-            c2048_direct_str(c->direct),
+    printf("\n====SCORE:[\e[1;31m%u\e[0m](\e[1;33m%s\e[0m => %u[%u,%u])====\n",
+            c->score,c2048_direct_str(c->direct),
             c->randVal,c->randx,c->randy);
     for(;y >= 0;y--){
         for(x = 0;x < c->w;x++){
@@ -86,7 +88,7 @@ int main(int argc,char *argv[]){
     signal(SIGINT,signal_callback);
 
     int ret = 0;
-    ret = c2048_init(&c,4,4,NULL,NULL);
+    ret = c2048_init(&c,WIDTH,HEIGHT,NULL,NULL);
     if(0 != ret){
         printf("init c2048 failed:code[%d]!\n",ret);
         return 1;
@@ -107,7 +109,7 @@ int main(int argc,char *argv[]){
         if(IS_DEBUG){
             inLoop = 0;
             ch = random() % 4 + 1;
-            usleep(100);
+            usleep(1);
         }else{
             ch = getchar();
         }
